@@ -1,0 +1,15 @@
+for record in self:
+
+ if record.product_id and record.picking_id:
+
+   picking = self.env['stock.picking'].search([('id','=',record.picking_id.id)])
+
+    if picking:
+
+      for line in picking.move_line_ids_without_package:
+
+        if line.product_id.id == record.product_id.id:
+ 
+         record['x_comp'] = str(line.lot_id.id)
+ 
+         record['lot_id'] = line.lot_id.id
